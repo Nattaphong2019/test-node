@@ -89,6 +89,42 @@ const server = http.createServer(async (req, res) => {
 
       return;
     }
+  } else if (req.url === "/api/users" || req.url === "/api/users/") {
+    if (req.method === "GET") {
+      res.statusCode = 200;
+      res.setHeader("Content-Type", "application/json");
+      res.end(JSON.stringify(DB["users"]));
+
+      return;
+    } else if (req.method === "POST") {
+      const buffers = [];
+
+      for await (const chunk of req) {
+        buffers.push(chunk);
+      }
+
+      const dataString = Buffer.concat(buffers).toString();
+      const data = JSON.parse(dataString); // name, description, hours, price
+
+      const user = saveToDatabase("users", {
+        name: data.name,
+        lname: data.lname,
+        role: data.role,
+        password: data.password,
+        isPublic: 0,
+      });
+
+      res.statusCode = 200;
+      res.setHeader("Content-Type", "application/json");
+
+      res.end(
+        JSON.stringify({
+          id: user.id,
+        })
+      );
+
+      return;
+    }
   }
 
   res.statusCode = 404;
