@@ -4,8 +4,8 @@ const hostname = "127.0.0.1";
 const port = 3000;
 const DB = {
   courses: [],
-  book: [],
-  user: [],
+  books: [],
+  users: [],
 };
 
 const server = http.createServer(async (req, res) => {
@@ -48,6 +48,42 @@ const server = http.createServer(async (req, res) => {
       res.end(
         JSON.stringify({
           id: course.id,
+        })
+      );
+
+      return;
+    }
+  } else if (req.url === "/api/books" || req.url === "/api/books/") {
+    if (req.method === "GET") {
+      res.statusCode = 200;
+      res.setHeader("Content-Type", "application/json");
+      res.end(JSON.stringify(DB["books"]));
+
+      return;
+    } else if (req.method === "POST") {
+      const buffers = [];
+
+      for await (const chunk of req) {
+        buffers.push(chunk);
+      }
+
+      const dataString = Buffer.concat(buffers).toString();
+      const data = JSON.parse(dataString); // name, description, hours, price
+
+      const book = saveToDatabase("books", {
+        name: data.name,
+        description: data.description,
+        type: data.type,
+        price: data.price,
+        isPublic: 0,
+      });
+
+      res.statusCode = 200;
+      res.setHeader("Content-Type", "application/json");
+
+      res.end(
+        JSON.stringify({
+          id: book.id,
         })
       );
 
