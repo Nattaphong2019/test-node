@@ -12,11 +12,11 @@ const DB = {
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.end("hello world");
+  res.json("hello world");
 });
 
 app.get("/api/courses", (req, res) => {
-  res.end(JSON.stringify(DB["courses"]));
+  res.json(JSON.stringify(DB["courses"]));
 });
 
 app.post("/api/courses", (req, res) => {
@@ -28,7 +28,7 @@ app.post("/api/courses", (req, res) => {
     price: data.price,
     isPublic: 0,
   });
-  res.end(
+  res.json(
     JSON.stringify({
       id: course.id,
     })
@@ -36,7 +36,7 @@ app.post("/api/courses", (req, res) => {
 });
 
 app.get("/api/books", (req, res) => {
-  res.end(JSON.stringify(DB["books"]));
+  res.json(JSON.stringify(DB["books"]));
 });
 
 app.post("/api/books", (req, res) => {
@@ -46,7 +46,7 @@ app.post("/api/books", (req, res) => {
     price: data.price,
     isPublic: 0,
   });
-  res.end(
+  res.json(
     JSON.stringify({
       id: book.id,
     })
@@ -54,7 +54,7 @@ app.post("/api/books", (req, res) => {
 });
 
 app.get("/api/users", (req, res) => {
-  res.end(JSON.stringify(DB["users"]));
+  res.json(JSON.stringify(DB["users"]));
 });
 
 app.post("/api/users", (req, res) => {
@@ -65,7 +65,7 @@ app.post("/api/users", (req, res) => {
     email: data.email,
     isAdmin: 0,
   });
-  res.end(
+  res.json(
     JSON.stringify({
       id: user.id,
     })
