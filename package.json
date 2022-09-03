@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "express": "^4.18.1",
+    "init": "^0.1.2"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "test-node",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nattaphong2019/test-node.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nattaphong2019/test-node/issues"
+  },
+  "homepage": "https://github.com/Nattaphong2019/test-node#readme",
+  "description": ""
+}
